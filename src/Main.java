@@ -8,13 +8,13 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Worker worker5 = new Worker("Lewis Hamilton", 40000, 6, "2015-01-01", "Driver");
-        Worker worker6 = new Worker("Sebastian Vettel", 30000, 7, "2016-02-02", "Driver");
-        Worker worker7 = new Worker("Valtteri Bottas", 32000, 7, "2017-03-03", "Driver");
-        Manager manager2 = new Manager("Toto Wolff", 150000, 8, "2014-05-05", "Team Manager");
+        Worker worker5 = new Worker("Lewis Hamilton", 40000, 1, "2015-01-01", "Driver");
+        Worker worker6 = new Worker("Sebastian Vettel", 30000, 1, "2016-02-02", "Driver");
+        Worker worker7 = new Worker("Valtteri Bottas", 32000, 1, "2017-03-03", "Driver");
+        Manager manager2 = new Manager("Toto Wolff", 150000, 1, "2014-05-05", "Team Manager");
 
-        Worker worker8 = new Worker("Daniel Ricciardo", 28000, 6, "2018-06-06", "Driver");
-        Manager manager3 = new Manager("Cyril Abiteboul", 110000, 8, "2013-07-07", "Team Manager");
+        Worker worker8 = new Worker("Daniel Ricciardo", 28000, 2, "2018-06-06", "Driver");
+        Manager manager3 = new Manager("Cyril Abiteboul", 110000, 2, "2013-07-07", "Team Manager");
 
         List<Employee> employees = new ArrayList<>();
         employees.add(worker5);
@@ -51,12 +51,19 @@ public class Main {
         System.out.println("Employees with duplicate IDs:");
         for (List<Employee> employeeList : idToEmployeesMap.values()) {
             if (employeeList.size() > 1) {
+                boolean hasDuplicates = false;
                 for (int i = 0; i < employeeList.size(); i++) {
                     for (int j = i + 1; j < employeeList.size(); j++) {
                         if (employeeList.get(i).equals(employeeList.get(j))) {
-                            System.out.println(employeeList.get(i).getName() + " and " + employeeList.get(j).getName() + " have the same ID: " + employeeList.get(i).hashCode());
+                            hasDuplicates = true;
                         }
                     }
+                }
+                if (hasDuplicates) {
+                    for (Employee employee : employeeList) {
+                        System.out.println(employee.getName() + " with ID: " + employee.hashCode());
+                    }
+                    System.out.println();
                 }
             }
         }
