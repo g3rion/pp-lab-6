@@ -1,8 +1,11 @@
+// Main.java
 import company.models.Manager;
 import company.models.Worker;
 import company.abstracts.Employee;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -38,23 +41,21 @@ public class Main {
         System.out.println("Total salary of all managers: " + totalManagerSalary);
         System.out.println("Total salary of all workers: " + totalWorkerSalary);
 
-        List<Employee> duplicateIdEmployees = new ArrayList<>();
-        for (int i = 0; i < employees.size(); i++) {
-            for (int j = i + 1; j < employees.size(); j++) {
-                if (employees.get(i).equals(employees.get(j))) {
-                    if (!duplicateIdEmployees.contains(employees.get(i))) {
-                        duplicateIdEmployees.add(employees.get(i));
-                    }
-                    if (!duplicateIdEmployees.contains(employees.get(j))) {
-                        duplicateIdEmployees.add(employees.get(j));
-                    }
-                }
-            }
+        Map<Integer, List<Employee>> idToEmployeesMap = new HashMap<>();
+        for (Employee employee : employees) {
+            int id = employee.hashCode();
+            idToEmployeesMap
+                    .computeIfAbsent(id, k -> new ArrayList<>())
+                    .add(employee);
         }
 
         System.out.println("Employees with duplicate IDs:");
-        for (Employee employee : duplicateIdEmployees) {
-            System.out.println(employee.getName() + " with ID: " + employee.hashCode());
+        for (List<Employee> employeeList : idToEmployeesMap.values()) {
+            if (employeeList.size() > 1) {
+                for (Employee employee : employeeList) {
+                    System.out.println(employee.getName() + " with ID: " + employee.hashCode());
+                }
+            }
         }
     }
 }
