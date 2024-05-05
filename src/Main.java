@@ -1,4 +1,3 @@
-// Main.java
 import company.models.Manager;
 import company.models.Worker;
 import company.abstracts.Employee;
@@ -52,8 +51,12 @@ public class Main {
         System.out.println("Employees with duplicate IDs:");
         for (List<Employee> employeeList : idToEmployeesMap.values()) {
             if (employeeList.size() > 1) {
-                for (Employee employee : employeeList) {
-                    System.out.println(employee.getName() + " with ID: " + employee.hashCode());
+                for (int i = 0; i < employeeList.size(); i++) {
+                    for (int j = i + 1; j < employeeList.size(); j++) {
+                        if (employeeList.get(i).equals(employeeList.get(j))) {
+                            System.out.println(employeeList.get(i).getName() + " and " + employeeList.get(j).getName() + " have the same ID: " + employeeList.get(i).hashCode());
+                        }
+                    }
                 }
             }
         }
