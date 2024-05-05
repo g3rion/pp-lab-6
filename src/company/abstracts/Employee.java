@@ -1,3 +1,4 @@
+// company/abstracts/Employee.java
 package company.abstracts;
 
 import company.interfaces.Employable;
@@ -36,5 +37,17 @@ public abstract class Employee implements Employable {
     @Override
     public int hashCode() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Employee)) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        Employee other = (Employee) obj;
+        return this.id == other.id;
     }
 }
