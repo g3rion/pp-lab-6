@@ -1,4 +1,3 @@
-// company/abstracts/Employee.java
 package company.abstracts;
 
 import company.interfaces.Employable;
